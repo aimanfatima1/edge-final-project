@@ -1,51 +1,43 @@
 import tkinter as tk
 from nltk.corpus import wordnet 
     
-h=500
-w=600
-root = tk.Tk()
-# syns = wordnet.synsets(entry.get())
-# def test_function():
-#     # syns = wordnet.synsets(entry.get())
-#     # print(syns[0].name())
-#     print(syns[0].lemmas()[0].name())
-#     print(syns[0].definition())
+window = tk.Tk()
+window.title("Dictionary")
+
+canvas1 = tk.Canvas(window, height = 300, width = 400)
+canvas1.pack()
+
+# background_image = tk.PhotoImage(file='library.png')
+# background_label = tk.Label(root,image=background_image)
+# background_label.place(relwidth=1,relheight=1)
+
+# frame = tk.Frame(window,bg='gray',bd=5)
+# frame.place(relx=0.5,rely=0.1,relwidth=0.75,relheight=0.1,anchor='n')
+
+entry1 = tk.Entry(window)
+canvas1.create_window(200, 140, window = entry1)
+
+def get_word():
+    x1 = entry1.get()
+    syns = wordnet.synsets(x1)
     
-# def click():
-#     entered_text=entry.get()
+    label1 = tk.Label(window , text= syns[0].lemmas()[0].name()) 
+    label2 = tk.Label(window, text = syns[0].definition())
+    label3 = tk.Label(window, text = syns[0].examples())
+    canvas1.create_window(200,170,window = label1)
+    canvas1.create_window(200,210,window = label2)
+    canvas1.create_window(200,190,window = label3)
     
-canvas = tk.Canvas(root,height=h,width=w)
-canvas.pack()
-
-background_image = tk.PhotoImage(file='library.png')
-background_label = tk.Label(root,image=background_image)
-background_label.place(relwidth=1,relheight=1)
-
-frame = tk.Frame(root,bg='gray',bd=5)
-frame.place(relx=0.5,rely=0.1,relwidth=0.75,relheight=0.1,anchor='n')
-
-entry = tk.Entry(frame,font=40)
-entry.place(relwidth=0.65,relheight=1)
-
-# syns = wordnet.synsets(entry.get())
-def test_function():
-    syns = wordnet.synsets(entry.get())
-    # print(syns[0].name())
-    print(syns.name())
-    # print(syns[0].definition())
-    
-button = tk.Button(frame, text="Enter",font=40,command=test_function())
-button.place(relx=0.7,relheight=1,relwidth=0.3)  
+button = tk.Button(text="Enter",font = 40, command = get_word)
+canvas1.create_window(200, 230, window = button) 
                
-# button = tk.Button(frame,text="enter",width=6,command=click()) 
 
 
 
+# lower_frame = tk.Frame(root,bg='grey',bd=10)
+# lower_frame.place(relx=0.5,rely=0.25,relwidth=0.75,relheight=0.6,anchor='n')
 
-lower_frame = tk.Frame(root,bg='grey',bd=10)
-lower_frame.place(relx=0.5,rely=0.25,relwidth=0.75,relheight=0.6,anchor='n')
+# label = tk.Label(lower_frame,bg='gray')
+# label.place(relwidth=1,relheight=1)
 
-label = tk.Label(lower_frame,bg='gray')
-label.place(relwidth=1,relheight=1)
-
-root.mainloop()
+window.mainloop()
