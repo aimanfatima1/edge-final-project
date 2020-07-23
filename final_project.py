@@ -1,38 +1,27 @@
 import tkinter as tk
-# from tkinter import font
 from nltk.corpus import wordnet 
 
 window = tk.Tk()
 window.title("Dictionary")
 
-canvas1 = tk.Canvas(window, height = 600, width = 800)
+canvas1 = tk.Canvas(window, height = 700, width = 900)
 canvas1.pack()
 
+background_image = tk.PhotoImage(file='jp.png')
+background_label = tk.Label(window,image=background_image, bg="black")
+background_label.place(relwidth=1,relheight=1)
 
-# background_image = tk.PhotoImage(file='library.png')
-# background_label = tk.Label(window,image=background_image)
-# background_label.place(relwidth=1,relheight=1)
+entry1 = tk.Entry(window,bd=5)
+canvas1.create_window(450, 165, window = entry1)
 
-# frame = tk.Frame(window,bg='gray',bd=5)
-# frame.place(relx=0.5,rely=0.1,relwidth=0.75,relheight=0.1,anchor='n')
-
-# tex = tk.Label(bg = 'pink',text="Dictionary and Thesaurus",font = ('Copperplate',40))
-# canvas1.create_window(500, 50,window = tex)
-#print(tk.font.families())
-
-entry1 = tk.Entry(window)
-canvas1.create_window(400, 200, window = entry1)
-
-
-photo = tk.PhotoImage(file = "text.gif")
-label = tk.Label(image = photo)
+photo = tk.PhotoImage(file = "header.png")
+label = tk.Label(image = photo, bg = '#aae0fc')
 label.pack()
-canvas1.create_window(400, 50, window=label)
+canvas1.create_window(450, 50, window=label)
 
-word = tk.PhotoImage(file = "word.gif")
-labelw = tk.Label(image = word)
+labelw = tk.Label(text = "Enter your word below:", font = ("Apple Chancery",30) , bg="#abe5fb")
 labelw.pack()
-canvas1.create_window(400, 160, window = labelw)
+canvas1.create_window(450, 120, window = labelw)
 
 def get_word():
     global label1,label2,label3,label4,label5
@@ -49,18 +38,17 @@ def get_word():
             if l.antonyms(): 
                 antonyms.append(l.antonyms()[0].name()) 
                 
-    label1 = tk.Label(window , text= syns[0].lemmas()[0].name()) 
-    label2 = tk.Label(window, text = syns[0].definition())
-    label3 = tk.Label(window, text = syns[0].examples())
-    label4 = tk.Label(window, text=set(synonyms))
-    label5 = tk.Label(window,text=set(antonyms))
+    label1 = tk.Label(window , text= syns[0].lemmas()[0].name(), bg="#9eeaf8", font=("Arial",14) , fg="black") 
+    label2 = tk.Label(window, text = syns[0].definition(),bg = "#9cf7ee", font =("Arial",14) , fg="black")
+    label3 = tk.Label(window, text = syns[0].examples(),bg="#a3edfa",font =("Arial",14) , fg="black")
+    label4 = tk.Label(window, text=set(synonyms),bg = "#a4f3fa",font =("Arial",14) , fg="black")
+    label5 = tk.Label(window,text=antonyms,bg = "#a2f8f7",font =("Arial",14) , fg="black")
     
-    canvas1.create_window(400,250,window = label1)
-    canvas1.create_window(400,300,window = label2)
-    canvas1.create_window(400,350,window = label3)
-    canvas1.create_window(400,400,window = label4)
-    canvas1.create_window(400,450,window = label5)
-  
+    canvas1.create_window(450,245,window = label1)
+    canvas1.create_window(450,330,window = label2)
+    canvas1.create_window(450,415,window = label3)
+    canvas1.create_window(450,505,window = label4)
+    canvas1.create_window(450,590,window = label5)
   
     
 def delete():
@@ -70,17 +58,32 @@ def delete():
     label4.destroy()
     label5.destroy()
     
-button1 = tk.Button(text="Enter",font = 40, command = get_word)
-canvas1.create_window(400, 500, window = button1) 
-               
-deletebutton = tk.Button(text="Delete text", command = delete)
+btn = tk.PhotoImage(file="ent.png")
+
+wordlabel = tk.Label(window,text = "Word", font =('Bodoni 72',24), bg="#9eeaf8",fg = "black" )
+canvas1.create_window(450,205,window = wordlabel) 
+
+deflabel = tk.Label(window, text = "Definition", font =('Bodoni 72',24), bg="#9eeaf8",fg = "black" )
+canvas1.create_window(450,290,window = deflabel)
+
+exlabel = tk.Label(window,text = "Examples", font =('Bodoni 72',24),bg="#a3edfa",fg = "black")
+canvas1.create_window(450,375,window = exlabel)
+
+synlabel = tk.Label(window,text = "Synonyms", font =('Bodoni 72',24),bg="#a4f3fa",fg = "black")
+canvas1.create_window(450,460,window = synlabel)
+
+antlabel = tk.Label(window,text = "Antonyms",font =('Bodoni 72',24),bg="#a2f8f7",fg = "black")
+canvas1.create_window(450,550,window = antlabel)
+
+button1 = tk.Button(image=btn,font = 40, command = get_word,bd=3)
+canvas1.create_window(620, 165, window = button1) 
+
+delete1 = tk.PhotoImage(file ="delt.png")
+
+deletebutton = tk.Button(text="Delete text",image = delete1,command = delete, bd=3)
 deletebutton.pack()
-canvas1.create_window(400, 550,window = deletebutton)
+canvas1.create_window(450, 630,window = deletebutton)
 
-# lower_frame = tk.Frame(root,bg='grey',bd=10)
-# lower_frame.place(relx=0.5,rely=0.25,relwidth=0.75,relheight=0.6,anchor='n')
 
-# label = tk.Label(frame,bg='green')
-# label.place(relheight= 500,relwidth=100)
 
 window.mainloop()
